@@ -18,7 +18,7 @@ export class AppComponent {
   session: string = ''
   showLens: boolean = false
   isEditing: boolean = false
-  clientId: string = 'vrfrscMd4ICwS1fwmSUT18Vgp3cDHc3OAi9K6ZP'
+  clientId: string = "YOUR_CLIENT_ID"
   VALIDATE_URL = 'https://lens.veryfi.com/rest/validate_partner';
 
   ngOnInit() {
