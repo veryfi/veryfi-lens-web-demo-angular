@@ -9,7 +9,7 @@ Veryfi Lens for Web SDK is a framework for your web app to give it document capt
 
 This project is a demo to showcase how you can integrate Lens into your web app. It follows a client-server architecture where the server is for validating your client and getting session key and the client side is for displaying and showing Lens components for capturing documents.
 
-<img src="https://github.com/veryfi/veryfi-lens-web-demo-react/blob/main/flow.png">
+<img src="https://github.com/veryfi/veryfi-lens-web-demo-angular/blob/main/flow.png">
 
 
  1. npm package
