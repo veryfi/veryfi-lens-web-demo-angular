@@ -11,17 +11,19 @@ This project is a demo to showcase how you can integrate Lens into your web app.
 
 <img src="https://github.com/veryfi/veryfi-lens-web-demo-react/blob/main/flow.png">
 
-App includes two ways of using lens sdk:
 
-Implementation using npm package (suggested)
+ 1. npm package
  
- To install or update package - `npm i veryfi-lens-sdk` **(already included)**
+ To install or update package - `npm i veryfi-lens-wasm` **(already included)**
+ please go to https://github.com/veryfi/veryfi-lens-wasm to check installation guide
+
+
  To use npm package you will have to install following packages **(already installed)**
  
+`npm i path-browserify crypto-browserify stream-browserify assert stream-http https-browserify os-browserify browserify-fs`
 
-    npm i path-browserify crypto-browserify stream-browserify assert stream-http https-browserify os-browserify browserify-fs
 
- and add this object to *compilerOptions* inside tsconfig.json: 
+and add this object to *compilerOptions* inside tsconfig.json: 
  ```
  "paths":{
 "path":["node_modules/path-browserify"],
@@ -34,17 +36,14 @@ Implementation using npm package (suggested)
 "fs": ["./node_modules/browserify-fs"],
 }
 ```
-Add this to your component
-
-    import VeryfiLens from 'veryfi-lens-sdk'
-
-Implementation using `<script>` tag (optional)
-
-Add this to your *index.html*
-`<script  src="https://lens.veryfi.com/static/js/lens-v1.1.2.min.js"></script>`
-
-The only difference in usage is in `capture()` function, functions for both methods of integration are included in *app.component.ts*
-
-Add `<script  src="https://cdn.tailwindcss.com"></script>` to your *index.html* or install tailwind package
-
 Put your CLIENT_ID in src/app/app.components.ts (make sure to keep it secret)
+
+import VeryfiLens from 'veryfi-lens-wasm'
+
+Install tailwind package
+
+To run the project with WASM and long receipt build the project `npm run build`
+Copy server.js to dist/lens
+`cd dist/lens` 
+`node server.js`
+
