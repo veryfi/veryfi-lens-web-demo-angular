@@ -43,7 +43,7 @@ import VeryfiLens from 'veryfi-lens-wasm'
 Install tailwind package
 
 To run the project with WASM and long receipt build the project `npm run build`
-Copy server.js to dist/lens
+Copy server.js from /src to dist/lens
 `cd dist/lens` 
 `node server.js`
 
