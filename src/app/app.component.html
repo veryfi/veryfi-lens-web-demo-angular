@@ -1,28 +1,33 @@
 <div>
-  <div *ngIf="isLong" id="preview-container"
-      class="absolute top-[100px] left-[45vw] md:left-[40px] w-[22vw] md:w-[18vw] h-[70vh] rounded-md z-40 overflow-y-hidden border-[1px] border-solid border-green-300"
-      ></div>
-<div *ngIf="!showLens && !isEditing && !isUpload" class="absolute top-[35vh] left-[40vw] flex flex-col gap-4 text-center">
+  <div
+    *ngIf="isLong"
+    id="preview-container"
+    class="absolute top-[100px] left-[45vw] md:left-[40px] w-[22vw] md:w-[18vw] h-[70vh] rounded-md z-40 overflow-y-hidden border-[1px] border-solid border-green-300"
+  ></div>
+  <div
+    *ngIf="!showLens && !isEditing && !isUpload"
+    class="absolute top-[35vh] left-[40vw] flex flex-col gap-4 text-center"
+  >
     <button
-    class="flex text-center items-center gap-3 text-[15px] p-4 hover:text-green-500 text-white w-full cursor-pointer border-solid border-[1px] rounded-md border-white disabled:text-gray-400 "
+      class="flex text-center items-center gap-3 text-[15px] p-4 hover:text-green-500 text-white w-full cursor-pointer border-solid border-[1px] rounded-md border-white disabled:text-gray-400"
       (click)="initLens()"
     >
       Socket Receipt
     </button>
     <button
-    class="flex items-center gap-3 text-[15px] p-4 hover:text-green-500 text-white w-full cursor-pointer border-solid border-[1px] rounded-md border-white disabled:text-gray-400 "
+      class="flex items-center gap-3 text-[15px] p-4 hover:text-green-500 text-white w-full cursor-pointer border-solid border-[1px] rounded-md border-white disabled:text-gray-400"
       (click)="initWasm()"
     >
       Wasm Receipt
     </button>
     <button
-    class="flex items-center gap-3 text-[15px] p-4 hover:text-green-500 text-white w-full cursor-pointer border-solid border-[1px] rounded-md border-white disabled:text-gray-400 "
+      class="flex items-center gap-3 text-[15px] p-4 hover:text-green-500 text-white w-full cursor-pointer border-solid border-[1px] rounded-md border-white disabled:text-gray-400"
       (click)="initWasmLong()"
     >
       Long Receipt
     </button>
     <button
-    class="flex items-center gap-3 text-[15px] p-4 hover:text-green-500 text-white w-full cursor-pointer border-solid border-[1px] rounded-md border-white disabled:text-gray-400 "
+      class="flex items-center gap-3 text-[15px] p-4 hover:text-green-500 text-white w-full cursor-pointer border-solid border-[1px] rounded-md border-white disabled:text-gray-400"
       (click)="initDragAndDrop()"
     >
       Upload Document / Drag and Drop
@@ -40,7 +45,6 @@
     </button>
     <!-- BUTTON TO CLOSE LENS -->
     <div class="h-full">
-     
       <div
         id="veryfi-container"
         class="relative flex justify-center h-full overflow-hidden"
@@ -85,58 +89,59 @@
       </button>
     </div>
   </div>
-  <div *ngIf="isUpload && !base64Image"
-  class="absolute bottom-28 left-[35vw] w-[30vw] flex bg-slate-200 rounded-md shadow-md p-4 m-2 gap-1 justify-center items-center h-[70px] mt-4 border-dashed border-[2px] border-green-500" 
-     (drop)="onDrop($event)" 
-     (dragover)="onDragOver($event)" 
-     (dragleave)="onDragLeave($event)"
-     (click)="triggerInput(fileInput)"
-     >
-     
+  <div
+    *ngIf="isUpload && !base64Image"
+    class="absolute bottom-28 left-[35vw] w-[30vw] flex bg-slate-200 rounded-md shadow-md p-4 m-2 gap-1 justify-center items-center h-[70px] mt-4 border-dashed border-[2px] border-green-500"
+    (drop)="onDrop($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (click)="triggerInput(fileInput)"
+  >
     Drag and Drop or Click to Upload
     <input
-     #fileInput
+      #fileInput
       type="file"
       accept="image/*"
-      (change)=handleImageChange($event)
+      (change)="handleImageChange($event)"
       class="hidden"
-  />
+    />
   </div>
-  <button *ngIf="isUpload"
-  id="veryfi-lens-close"
-  class="absolute z-50 m-6 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-  type="button"
-  (click)="goBack()"
->
-  X
-</button>
-  <div *ngIf="base64Image"
-  class="flex flex-col justify-center items-center gap-4 mt-12"
+  <button
+    *ngIf="isUpload"
+    id="veryfi-lens-close"
+    class="absolute z-50 m-6 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    type="button"
+    (click)="goBack()"
   >
- 
-    <img *ngIf="base64Image && !croppedImage"
+    X
+  </button>
+  <div
+    *ngIf="base64Image"
+    class="flex flex-col justify-center items-center gap-4 mt-12"
+  >
+    <img
+      *ngIf="base64Image && !croppedImage"
       class="h-[70vh]"
       [src]="'data:image/png;base64,' + base64Image"
     />
-    <img *ngIf="croppedImage"
+    <img
+      *ngIf="croppedImage"
       class="h-[70vh]"
       [src]="'data:image/png;base64,' + croppedImage"
     />
-    <button *ngIf="isUpload && !croppedImage"
-    (click)="handleUploadCrop()"
-    class="bg-green-500 hover:bg-green-700 text-white
-    font-bold py-2 px-4 rounded w-[50%]
-    focus:outline-none focus:shadow-outline mr-4 mb-4"
+    <button
+      *ngIf="isUpload && !croppedImage"
+      (click)="handleUploadCrop()"
+      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-[50%] focus:outline-none focus:shadow-outline mr-4 mb-4"
     >
-Crop
+      Crop
     </button>
-    <button *ngIf="image"
-    (click)="handleSubmit()"
-    class="bg-green-500 hover:bg-green-700 text-white
-    font-bold py-2 px-4 rounded w-[50%]
-    focus:outline-none focus:shadow-outline mr-4 mb-4"
+    <button
+      *ngIf="image"
+      (click)="handleSubmit()"
+      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-[50%] focus:outline-none focus:shadow-outline mr-4 mb-4"
     >
-Submit
+      Submit
     </button>
   </div>
 </div>

@@ -51,13 +51,13 @@ export class WasmWrapper {
     const features = await this.checkFeatures_();
     const { useSimd, useThreads } = features;
     if (!useThreads) {
-    console.warn(
-    "Threads disabled, seems that the security requirements for SharedArrayBuffer are not met"
-    );
-    return;
+      console.warn(
+        "Threads disabled, seems that the security requirements for SharedArrayBuffer are not met"
+      );
+      return;
     }
     const dir = this.selectDir(useSimd);
-await this.loadModuleScript_("/wasm/" + dir + "/veryfi-wasm.js");
+    await this.loadModuleScript_("/wasm/" + dir + "/veryfi-wasm.js");
     this.wasmModule = await createModule();
     this.loaded = true;
   }
@@ -242,25 +242,28 @@ await this.loadModuleScript_("/wasm/" + dir + "/veryfi-wasm.js");
     let useSimd = await this.simd();
     let useThreads = await this.threads();
     console.log(`SIMD available: ${useSimd}`);
-    console.log(`Threads available: ${useThreads}`)
-    !useThreads && console.log("Threads disabled, seems that the security requirements for SharedArrayBuffer are not met");
+    console.log(`Threads available: ${useThreads}`);
+    !useThreads &&
+      console.log(
+        "Threads disabled, seems that the security requirements for SharedArrayBuffer are not met"
+      );
     return { useSimd, useThreads };
   }
 
-/** @private */
+  /** @private */
   loadModuleScript_(jsUrl) {
     return new Promise((resolve, reject) => {
-let script = document.createElement("script");
-script.onload = () => {
-resolve();
-};
-script.onerror = () => {
-reject();
+      let script = document.createElement("script");
+      script.onload = () => {
+        resolve();
+      };
+      script.onerror = () => {
+        reject();
       };
       script.src = jsUrl;
       document.body.appendChild(script);
-});
-}
+    });
+  }
 
   /** @private */
   createBuffer_(bitmap) {

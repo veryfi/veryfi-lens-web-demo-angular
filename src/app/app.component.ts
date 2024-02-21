@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import axios from 'axios';
 import { NgIf } from '@angular/common';
 //@ts-ignore
-import VeryfiLens  from 'veryfi-lens-wasm';
+import VeryfiLens from 'veryfi-lens-wasm';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,14 +27,13 @@ export class AppComponent {
   isLong: boolean = false;
   isStitching: boolean = false;
   isUpload: boolean = false;
-  deviceData: object = {}
-
+  deviceData: object = {};
 
   VALIDATE_URL = 'https://lens.veryfi.com/rest/validate_partner';
-  PROCESS_DOCUMENT_URL = "https://lens-dev.veryfi.com/rest/process";
-  CLIENT_ID = "YOUR_CLIENT_ID";
-  API_KEY = "YOUR_API_KEY";
-  USERNAME = "YOUR_USERNAME";
+  PROCESS_DOCUMENT_URL = 'https://lens-dev.veryfi.com/rest/process';
+  CLIENT_ID = 'YOUR_CLIENT_ID';
+  API_KEY = 'YOUR_API_KEY';
+  USERNAME = 'YOUR_USERNAME';
 
   async ngOnInit() {
     this.getVeryfiSession(this.CLIENT_ID);
@@ -68,21 +67,21 @@ export class AppComponent {
     }
     this.showLens = true;
     setTimeout(() => {
-    VeryfiLens.init(this.session, this.CLIENT_ID);
-    }, 1000)
+      VeryfiLens.init(this.session, this.CLIENT_ID);
+    }, 1000);
   }
 
   async initWasm(): Promise<void> {
     console.log(this.session);
     this.showLens = true;
-    this.isWasm = true
+    this.isWasm = true;
     if (!VeryfiLens.getHasInit()) {
       console.log('this.session', this.session);
       await VeryfiLens.setLensSessionKey(this.session);
     }
     setTimeout(() => {
-    VeryfiLens.initWasm(this.session, this.CLIENT_ID);
-    }, 1000)
+      VeryfiLens.initWasm(this.session, this.CLIENT_ID);
+    }, 1000);
   }
 
   initWasmLong(): void {
@@ -94,8 +93,8 @@ export class AppComponent {
       VeryfiLens.setLensSessionKey(this.session);
     }
     setTimeout(() => {
-    VeryfiLens.initWasmLong(this.session, this.CLIENT_ID);
-  }, 1000)
+      VeryfiLens.initWasmLong(this.session, this.CLIENT_ID);
+    }, 1000);
   }
 
   initDragAndDrop(): void {
@@ -106,8 +105,8 @@ export class AppComponent {
       VeryfiLens.setLensSessionKey(this.session);
     }
     setTimeout(() => {
-    VeryfiLens.initUploadWasm(this.session, this.CLIENT_ID);
-    }, 1000)
+      VeryfiLens.initUploadWasm(this.session, this.CLIENT_ID);
+    }, 1000);
   }
 
   async capture() {
@@ -126,8 +125,8 @@ export class AppComponent {
     this.isWasm = false;
   }
 
-  async startStitching(){
-    await VeryfiLens.startStitching()
+  async startStitching() {
+    await VeryfiLens.startStitching();
     this.isStitching = true;
   }
 
@@ -175,7 +174,16 @@ export class AppComponent {
     this.setImage('');
     this.showLens = false;
 
-    console.log("isSocket", this.isSocket, "isWasm", this.isWasm, "isLong", this.isLong, "isUpload", this.isUpload)
+    console.log(
+      'isSocket',
+      this.isSocket,
+      'isWasm',
+      this.isWasm,
+      'isLong',
+      this.isLong,
+      'isUpload',
+      this.isUpload
+    );
     if (this.isSocket) {
       this.stopCamera();
     }
@@ -215,7 +223,7 @@ export class AppComponent {
     event.stopPropagation();
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-      this.handleFile(files[0]); 
+      this.handleFile(files[0]);
     }
   }
 
@@ -231,28 +239,28 @@ export class AppComponent {
     reader.readAsDataURL(file);
   }
 
-   processFile = (file: any) => {
-    this.imageFile = file
+  processFile = (file: any) => {
+    this.imageFile = file;
     const reader = new FileReader();
     reader.onload = async (e) => {
       let imgData = e.target?.result as string;
       this.imageData = imgData;
-      const finalImage = this.imageData.split(",")[1];
+      const finalImage = this.imageData.split(',')[1];
       this.base64Image = finalImage;
     };
     reader.readAsDataURL(file);
   };
 
-   handleImageChange = (e: any) => {
-    console.log("Handling");
+  handleImageChange = (e: any) => {
+    console.log('Handling');
     const file = e.target.files && e.target.files[0];
-    console.log(file, 'file')
+    console.log(file, 'file');
     if (file) {
       this.processFile(file);
     }
   };
 
-   handleUploadCrop = async () => {
+  handleUploadCrop = async () => {
     const data = await VeryfiLens.captureUploaded(
       this.imageFile as unknown as Blob
     );
@@ -261,12 +269,17 @@ export class AppComponent {
     this.croppedImage = data;
   };
 
-
-  async processImage(image: string, clientId:string, username:string, apiKey:string, deviceData:object) {
+  async processImage(
+    image: string,
+    clientId: string,
+    username: string,
+    apiKey: string,
+    deviceData: object
+  ) {
     try {
       const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           image: image,
           username: username,
@@ -281,14 +294,19 @@ export class AppComponent {
       }
       return await response.json();
     } catch (error) {
-      console.error("Error processing the image:", error);
+      console.error('Error processing the image:', error);
       throw error; // Re-throw the error for further handling if needed
     }
   }
 
   handleSubmit = async () => {
-    const data = await this.processImage(this.image, this.CLIENT_ID, this.USERNAME, this.API_KEY, this.deviceData)
-    console.log(data)
-  }
+    const data = await this.processImage(
+      this.image,
+      this.CLIENT_ID,
+      this.USERNAME,
+      this.API_KEY,
+      this.deviceData
+    );
+    console.log(data);
+  };
 }
-
