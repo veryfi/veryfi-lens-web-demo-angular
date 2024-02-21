@@ -11,39 +11,17 @@ This project is a demo to showcase how you can integrate Lens into your web app.
 
 <img src="https://github.com/veryfi/veryfi-lens-web-demo-angular/blob/main/flow.png">
 
-
  1. npm package
  
  To install or update package - `npm i veryfi-lens-wasm` **(already included)**
  please go to https://github.com/veryfi/veryfi-lens-wasm to check installation guide
 
+1. Put your CLIENT_ID, API_KEY and USERNAME in src/app/app.components.ts (make sure to keep it secret)
+2. import VeryfiLens from 'veryfi-lens-wasm'
+3. Install tailwind package
 
- To use npm package you will have to install following packages **(already installed)**
- 
-`npm i path-browserify crypto-browserify stream-browserify assert stream-http https-browserify os-browserify browserify-fs`
-
-
-and add this object to *compilerOptions* inside tsconfig.json: 
- ```
- "paths":{
-"path":["node_modules/path-browserify"],
-"crypto": ["./node_modules/crypto-browserify"],
-"stream": ["./node_modules/stream-browserify"],
-"assert": ["./node_modules/assert"],
-"http": ["./node_modules/stream-http"],
-"https": ["./node_modules/https-browserify"],
-"os": ["./node_modules/os-browserify"],
-"fs": ["./node_modules/browserify-fs"],
-}
-```
-Put your CLIENT_ID in src/app/app.components.ts (make sure to keep it secret)
-
-import VeryfiLens from 'veryfi-lens-wasm'
-
-Install tailwind package
-
-To run the project with WASM and long receipt build the project `npm run build`
-Copy server.js from /src to dist/lens
-`cd dist/lens` 
-`node server.js`
+4. Build the project `npm run build` (or use `ng serve` to use dev environment)
+5. Copy server.js from /src to dist/lens
+6. `cd dist/lens` 
+7. Run `node server.js`
 
